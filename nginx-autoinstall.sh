@@ -7,12 +7,12 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Define versions
-NGINX_MAINLINE_VER=1.21.6
+NGINX_MAINLINE_VER=1.23.1
 NGINX_STABLE_VER=1.20.1
 LIBRESSL_VER=3.3.1
 OPENSSL_VER=1.1.1l
 NPS_VER=1.13.35.2
-HEADERMOD_VER=0.33
+HEADERMOD_VER=0.34
 LIBMAXMINDDB_VER=1.4.3
 GEOIP2_VER=3.3
 LUA_JIT_VER=2.1-20201229
@@ -188,12 +188,9 @@ case $OPTION in
 	mkdir -p /usr/local/src/nginx/modules
 
 	# Dependencies
-	apt-get update
-	apt-get install -y build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake
+	#apt-get update
+	#apt-get install -y build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake
 
-	if [[ $MODSEC == 'y' ]]; then
-		apt-get install -y apt-utils libcurl4-openssl-dev libgeoip-dev liblmdb-dev libpcre++-dev libyajl-dev pkgconf
-	fi
 
 	# PageSpeed
 	if [[ $PAGESPEED == 'y' ]]; then
@@ -511,7 +508,7 @@ case $OPTION in
 		cd /usr/local/src/nginx/modules || exit 1
 		git clone --depth 1 --recursive https://github.com/cloudflare/quiche
 		# Dependencies for BoringSSL and Quiche
-		apt-get install -y golang
+		#apt-get install -y golang
 		# Rust is not packaged so that's the only way...
 		curl -sSf https://sh.rustup.rs | sh -s -- -y
 		source "$HOME/.cargo/env"
